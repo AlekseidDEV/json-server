@@ -16,17 +16,37 @@
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _modules_first__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/first */ \"./src/modules/first.js\");\n\r\n\r\n(0,_modules_first__WEBPACK_IMPORTED_MODULE_0__.first)()\n\n//# sourceURL=webpack://json-sever__lesson/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _modules_addUsers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/addUsers */ \"./src/modules/addUsers.js\");\n/* harmony import */ var _modules_render__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/render */ \"./src/modules/render.js\");\n/* harmony import */ var _modules_userService__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/userService */ \"./src/modules/userService.js\");\n\r\n\r\n\r\n\r\nwindow.userService = new _modules_userService__WEBPACK_IMPORTED_MODULE_2__.UserService\r\n\r\nuserService.getUsers().then(data => {\r\n   ;(0,_modules_render__WEBPACK_IMPORTED_MODULE_1__.render)(data)\r\n})\r\n\r\n;(0,_modules_addUsers__WEBPACK_IMPORTED_MODULE_0__.addUsers)()\r\n\r\n\r\n\r\n\r\n\n\n//# sourceURL=webpack://json-sever__lesson/./src/index.js?");
 
 /***/ }),
 
-/***/ "./src/modules/first.js":
-/*!******************************!*\
-  !*** ./src/modules/first.js ***!
-  \******************************/
+/***/ "./src/modules/addUsers.js":
+/*!*********************************!*\
+  !*** ./src/modules/addUsers.js ***!
+  \*********************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"first\": () => (/* binding */ first)\n/* harmony export */ });\nconst first = () => {\r\n console.log('first');\r\n}\n\n//# sourceURL=webpack://json-sever__lesson/./src/modules/first.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   addUsers: () => (/* binding */ addUsers)\n/* harmony export */ });\nconst addUsers = () => {\r\n   const form = document.querySelector('form')\r\n   const inputName = document.querySelector('#form-name')\r\n   const inputEmail = document.querySelector('#form-email')\r\n   const inputChildren = document.querySelector('#form-children')\r\n\r\n   form.addEventListener('submit', (e) => {\r\n        e.preventDefault()\r\n        \r\n\r\n        const user = {\r\n            name : inputName.value,\r\n            email : inputEmail.value,\r\n            children : inputChildren.checked,\r\n            permissions : false\r\n        }\r\n\r\n        userService.addUser(user)\r\n        // userService.addUser(user).then((data) => console.log(data))\r\n   })\r\n}\n\n//# sourceURL=webpack://json-sever__lesson/./src/modules/addUsers.js?");
+
+/***/ }),
+
+/***/ "./src/modules/render.js":
+/*!*******************************!*\
+  !*** ./src/modules/render.js ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   render: () => (/* binding */ render)\n/* harmony export */ });\nconst render = (users) => {\r\n    const tbody = document.querySelector('#table-body')\r\n\r\n    users.forEach(user => {\r\n       tbody.insertAdjacentHTML('beforeend', `\r\n       <tr>\r\n       <th scope=\"row\">${user.id}</th>\r\n       <td>${user.name}</td>\r\n       <td>${user.email}</td>\r\n       <td>${user.children ? 'Есть' : 'Нет'}</td>\r\n       <td>\r\n           <div class=\"form-check form-switch\">\r\n               <input class=\"form-check-input\" type=\"checkbox\" role=\"switch\" ${user.permissions ? 'checked' : ''}\r\n                   id=\"form-children\">\r\n           </div>\r\n       </td>\r\n       <td>\r\n           <div class=\"btn-group btn-group-sm\" role=\"group\" aria-label=\"Basic example\">\r\n               <button type=\"button\" class=\"btn btn-warning\">\r\n                   <i class=\"bi-pencil-square\"></i>\r\n               </button>\r\n               <button type=\"button\" class=\"btn btn-danger\">\r\n                   <i class=\"bi-person-x\"></i>\r\n               </button>\r\n           </div>\r\n       </td>\r\n   </tr>\r\n       `)\r\n    })\r\n}\n\n//# sourceURL=webpack://json-sever__lesson/./src/modules/render.js?");
+
+/***/ }),
+
+/***/ "./src/modules/userService.js":
+/*!************************************!*\
+  !*** ./src/modules/userService.js ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   UserService: () => (/* binding */ UserService)\n/* harmony export */ });\n class UserService {\r\n    getUsers(){\r\n        return fetch(\"http://localhost:3066/users\").then(resp => resp.json())\r\n    }\r\n\r\n    addUser(user){\r\n        return fetch('http://localhost:3066/users', {\r\n            method : \"POST\", \r\n            headers: {\r\n                \"Content-Type\": \"application/json\"\r\n            },\r\n            body: JSON.stringify(user)\r\n        })\r\n        .then(resp => console.log(resp))\r\n        .catch(() => {\r\n            alert('что то не работает')\r\n        })\r\n    }\r\n }\n\n//# sourceURL=webpack://json-sever__lesson/./src/modules/userService.js?");
 
 /***/ })
 
