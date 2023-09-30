@@ -7,7 +7,7 @@
     "build": "webpack --mode=production",
     "watch": "webpack --watch --mode=development",
     "clear" : "rd /s /q dist", 
-    "server" : "json-server --watch db/db.json --port=3066"
+    "server" : "json-server --watch db/db.json"
   },
   "keywords": [],
   "author": "",
