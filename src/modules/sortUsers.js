@@ -1,22 +1,24 @@
-import { render } from "./render"
+import { render } from "./render";
 
-export const sortUsers = () =>{
-    const teaderSortIsChildren = document.getElementById('sort-is-children') // поле, по которому будет производится клик
+export const sortUsers = () => {
+    const teaderSortIsChildren = document.getElementById("sort-is-children");
 
-    let isSort = false // флажок
+    let isSort = false;
 
-    teaderSortIsChildren.style.cursor = 'pointer'
+    teaderSortIsChildren.style.cursor = "pointer";
 
     const sortFunc = () => {
-        isSort = !isSort // изменяю флажок по нажатию
+        isSort = !isSort;
 
-        userService.getSortUsers({ // запускаю метод сортировки и передаю в него объект данных
-            name: 'children', // свойство по которому будет производится сортировка
-            value: isSort ? 'asc' : 'desc' // здесь в зависимости значения флажка, будет производится сортивка. Либо в одном порядке, либо в другом
-        }).then(users => {
-            render(users)
-        })
-    }
+        userService
+            .getSortUsers({
+                name: "children",
+                value: isSort ? "asc" : "desc",
+            })
+            .then((users) => {
+                render(users);
+            });
+    };
 
-    teaderSortIsChildren.addEventListener('click', sortFunc)
-}
+    teaderSortIsChildren.addEventListener("click", sortFunc);
+};

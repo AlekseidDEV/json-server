@@ -1,61 +1,72 @@
- export class UserService {
-    getUsers(){
-        return fetch("http://localhost:3000/users").then(resp => resp.json())
+import { errorMessFunc } from "./errorMess";
+export class UserService {
+    getRequest(url) {
+        return fetch(url)
+            .then((resp) => resp.json())
+            .catch((error) => {
+                errorMessFunc(error);
+            });
     }
 
-    addUser(user){
-        return fetch("http://localhost:3000/users", {
-            method : "POST", 
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(user)
-        }).then((resp) => resp.json())
+    postRequest(url, obj) {
+        return fetch(url, obj)
+            .then((resp) => resp.json())
+            .catch((error) => {
+                errorMessFunc(error);
+            });
     }
 
-    removeUser(id){
-        return fetch(`http://localhost:3000/users/${id}`, {
-            method: "DELETE"
-        }).then((resp) => resp.json())
+    getUsers() {
+        return this.getRequest("http://localhost:3000/users");
     }
 
-    changeUser(id, data){
-        return fetch(`http://localhost:3000/users/${id}`, {
-            method: "PATCH", 
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-            
-        }).then((resp) => resp.json())
+    addUser(user) {
+        return this.postRequest("http://localhost:3000/users", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(user),
+        });
     }
 
-    getUser(id){
-        return fetch(`http://localhost:3000/users/${id}`).then((resp) => resp.json())
+    removeUser(id) {
+        return this.postRequest(`http://localhost:3000/users/${id}`, {
+            method: "DELETE",
+        });
     }
 
-    editUser(id,user){
-        return fetch(`http://localhost:3000/users/${id}`, {
-            method: "PUT", 
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(user)
-            
-        }).then((resp) => resp.json())
+    changeUser(id, data) {
+        return this.postRequest(`http://localhost:3000/users/${id}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+        });
     }
 
-    filterUsers(filterOption){
-        return fetch(`http://localhost:3000/users?${filterOption}=true`).then(resp => resp.json())
+    getUser(id) {
+        return this.getRequest(`http://localhost:3000/users/${id}`);
     }
 
-    getSortUsers(sortOptions){
-        return fetch(`http://localhost:3000/users?_sort=${sortOptions.name}&_order=${sortOptions.value}`).then(resp => resp.json())
+    editUser(id, user) {
+        return this.postRequest(`http://localhost:3000/users/${id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(user),
+        });
     }
 
-    getSearchUsers(str){
-        return fetch(`http://localhost:3000/users?name_like=${str}`).then(resp => resp.json())
+    filterUsers(filterOption) {
+        return this.getRequest(
+            `http://localhost:3000/users?${filterOption}=true`
+        );
     }
- }
-//  если по простому, то это класс, который экспортируется в индекс. Здесь делаются как раз таки
-// таки запросы в базу. Тут и получаем пользователей, и записываем, и удаляем
+
+    getSortUsers(sortOptions) {
+        return this.getRequest(
+            `http://localhost:3000/users?_sort=${sortOptions.name}&_order=${sortOptions.value}`
+        );
+    }
+
+    getSearchUsers(str) {
+        return this.getRequest(`http://localhost:3000/users?name_like=${str}`);
+    }
+}

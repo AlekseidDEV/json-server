@@ -1,8 +1,8 @@
 export const debounce = (func, ms = 500) => {
-    let timeOut
+    let timeOut;
 
     return () => {
-        clearTimeout(timeOut)
-        timeOut = setTimeout(func, ms)
-    }
-}
+        clearTimeout(timeOut);
+        timeOut = setTimeout(func, ms);
+    };
+};
