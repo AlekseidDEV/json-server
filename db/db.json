@@ -1,11 +1,39 @@
 {
   "users": [
     {
-      "name": "Матвей",
-      "email": "matveiPompey@gmail.com",
+      "name": "Дмитрий",
+      "email": "Dmitry@inbox.ru",
       "children": false,
       "permissions": false,
       "id": 1
+    },
+    {
+      "name": "Илья",
+      "email": "iliaggg@gmail.com",
+      "children": true,
+      "permissions": true,
+      "id": 2
+    },
+    {
+      "name": "Иван",
+      "email": "ivan@mail.ru",
+      "children": false,
+      "permissions": true,
+      "id": 3
+    },
+    {
+      "name": "Иван",
+      "email": "sfasdf@dasd",
+      "children": false,
+      "permissions": true,
+      "id": 4
+    },
+    {
+      "name": "Петя Иванов",
+      "email": "Petoivan@mail.ru",
+      "children": true,
+      "permissions": false,
+      "id": 5
     }
   ]
 }
